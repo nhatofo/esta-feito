@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: esta-feito-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: esta-feito
+
+  backend:
+    build:
+      context: .
+      dockerfile: apps/backend/Dockerfile
+    container_name: esta-feito-api
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    environment:
+      NODE_ENV: production
+      PORT: 5000
+      MONGODB_URI: mongodb://mongodb:27017/esta-feito
+      # Copy remaining vars from apps/backend/.env
+    env_file:
+      - apps/backend/.env
+
+  web:
+    image: node:20-alpine
+    container_name: esta-feito-web
+    working_dir: /app
+    command: yarn workspace @esta-feito/web start
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - .:/app
+    environment:
+      NEXT_PUBLIC_API_URL: http://backend:5000/api
+
+volumes:
+  mongo_data:

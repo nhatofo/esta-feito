@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+/* ── Esta Feito Design Tokens ───────────────── */
+@theme {
+  /* Brand colours — warm amber + deep charcoal inspired by Mozambique earth tones */
+  --color-brand-50:  #fffbeb;
+  --color-brand-100: #fef3c7;
+  --color-brand-200: #fde68a;
+  --color-brand-300: #fcd34d;
+  --color-brand-400: #fbbf24;
+  --color-brand-500: #f59e0b;  /* primary */
+  --color-brand-600: #d97706;
+  --color-brand-700: #b45309;
+  --color-brand-800: #92400e;
+  --color-brand-900: #78350f;
+
+  --color-earth-50:  #fdf8f0;
+  --color-earth-100: #faebd7;
+  --color-earth-500: #a0714f;
+  --color-earth-700: #6b4c33;
+  --color-earth-900: #2d1f0e;
+
+  --color-surface:   #fdf8f0;
+  --color-ink:       #1c1309;
+  --color-muted:     #78716c;
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* Radius */
+  --radius-card: 1rem;
+  --radius-btn:  0.625rem;
+
+  /* Shadows */
+  --shadow-card: 0 4px 24px -4px rgba(28, 19, 9, 0.12);
+  --shadow-float: 0 8px 40px -8px rgba(28, 19, 9, 0.2);
+}
+
+/* ── Base ────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    font-family: var(--font-body);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  ::selection {
+    background-color: var(--color-brand-300);
+    color: var(--color-earth-900);
+  }
+}
+
+/* ── Component shortcuts ─────────────────────── */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5
+           bg-brand-500 hover:bg-brand-600 active:bg-brand-700
+           text-white font-semibold text-sm
+           rounded-[var(--radius-btn)] shadow-sm
+           transition-all duration-150 cursor-pointer
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5
+           bg-white border border-earth-100 hover:bg-earth-50
+           text-ink font-semibold text-sm
+           rounded-[var(--radius-btn)] shadow-sm
+           transition-all duration-150 cursor-pointer;
+  }
+
+  .btn-whatsapp {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5
+           bg-[#25D366] hover:bg-[#1ebe5d]
+           text-white font-semibold text-sm
+           rounded-[var(--radius-btn)] shadow-sm
+           transition-all duration-150;
+  }
+
+  .btn-mpesa {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5
+           bg-[#e40612] hover:bg-[#c20410]
+           text-white font-semibold text-sm
+           rounded-[var(--radius-btn)] shadow-sm
+           transition-all duration-150;
+  }
+
+  .btn-emola {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5
+           bg-[#0066cc] hover:bg-[#0052a3]
+           text-white font-semibold text-sm
+           rounded-[var(--radius-btn)] shadow-sm
+           transition-all duration-150;
+  }
+
+  .card {
+    @apply bg-white rounded-[var(--radius-card)] shadow-[var(--shadow-card)]
+           border border-earth-100/60 overflow-hidden;
+  }
+
+  .input {
+    @apply w-full px-4 py-2.5 bg-white border border-earth-100
+           rounded-[var(--radius-btn)] text-sm text-ink placeholder:text-muted
+           focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent
+           transition-shadow duration-150;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full
+           text-xs font-semibold;
+  }
+
+  .badge-open      { @apply badge bg-green-100 text-green-700; }
+  .badge-booked    { @apply badge bg-brand-100 text-brand-700; }
+  .badge-completed { @apply badge bg-earth-100 text-earth-700; }
+  .badge-cancelled { @apply badge bg-red-100 text-red-700; }
+  .badge-quoted    { @apply badge bg-blue-100 text-blue-700; }
+}

@@ -1,0 +1,41 @@
+{
+  "cli": {
+    "version": ">= 7.0.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": { "buildType": "apk" },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "http://YOUR_LOCAL_IP:5000/api"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "android": { "buildType": "apk" },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://api.estafeito.co.mz/api"
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://api.estafeito.co.mz/api"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "android": {
+        "serviceAccountKeyPath": "./google-services.json",
+        "track": "internal"
+      },
+      "ios": {
+        "appleId": "your@apple.id",
+        "ascAppId": "YOUR_APP_STORE_CONNECT_APP_ID",
+        "appleTeamId": "YOUR_APPLE_TEAM_ID"
+      }
+    }
+  }
+}

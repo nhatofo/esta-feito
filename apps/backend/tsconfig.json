@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020"],
+    "outDir": "./dist",
+    "composite": false,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": false,
+    "sourceMap": false,
+    "baseUrl": "../..",
+    "rootDir": "../../",
+    "paths": {
+      "@esta-feito/shared": ["packages/shared/index.ts"],
+      "@esta-feito/shared/*": ["packages/shared/*"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "../../packages/shared/**/*"
+  ],
+  "exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,16 @@
+node_modules/
+.next/
+dist/
+build/
+.env
+.env.local
+*.log
+logs/
+.DS_Store
+.expo/
+android/
+ios/
+*.apk
+*.ipa
+google-services.json
+GoogleService-Info.plist

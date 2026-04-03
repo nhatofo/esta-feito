@@ -1,0 +1,58 @@
+{
+  "expo": {
+    "name": "Esta Feito",
+    "slug": "esta-feito",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#78350f"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "co.mz.estafeito",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Para mostrar prestadores perto de si.",
+        "NSLocationAlwaysUsageDescription": "Para notificações de trabalhos próximos.",
+        "NSPhotoLibraryUsageDescription": "Para adicionar fotos ao seu trabalho.",
+        "NSCameraUsageDescription": "Para tirar fotos do local do trabalho."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#78350f"
+      },
+      "package": "co.mz.estafeito",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "VIBRATE",
+        "RECEIVE_BOOT_COMPLETED"
+      ]
+    },
+    "plugins": [
+      "expo-router",
+      "expo-location",
+      "expo-image-picker",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#f59e0b"
+        }
+      ]
+    ],
+    "scheme": "estafeito",
+    "extra": {
+      "eas": { "projectId": "YOUR_EAS_PROJECT_ID" },
+      "apiUrl": "https://api.estafeito.co.mz"
+    }
+  }
+}

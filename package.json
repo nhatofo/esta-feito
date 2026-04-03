@@ -1,0 +1,23 @@
+{
+  "name": "esta-feito",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/backend",
+    "apps/web"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev --workspace=apps/backend",
+    "dev:web":     "npm run dev --workspace=apps/web",
+    "dev:mobile":  "npm run start --workspace=apps/mobile",
+    "build:backend": "npm run build --workspace=apps/backend",
+    "build:web":     "npm run build --workspace=apps/web"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

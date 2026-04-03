@@ -1,0 +1,125 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: esta-feito-api
+  labels:
+    app: esta-feito
+    environment: production
+  annotations:
+    run.googleapis.com/ingress: all
+    run.googleapis.com/launch-stage: GA
+spec:
+  template:
+    metadata:
+      annotations:
+        # Scale to zero when no traffic (cost saving for MVP)
+        autoscaling.knative.dev/minScale: "0"
+        autoscaling.knative.dev/maxScale: "10"
+        # Cold start optimisation
+        run.googleapis.com/startup-cpu-boost: "true"
+    spec:
+      containerConcurrency: 80
+      timeoutSeconds: 30
+      serviceAccountName: esta-feito-sa@PROJECT_ID.iam.gserviceaccount.com
+      containers:
+        - image: gcr.io/PROJECT_ID/esta-feito-api:latest
+          ports:
+            - name: http1
+              containerPort: 8080
+          resources:
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: PORT
+              value: "8080"
+            - name: MPESA_ENV
+              value: sandbox   # Change to "production" when Vodacom MZ approves
+            - name: JWT_EXPIRES_IN
+              value: 15m
+            - name: JWT_REFRESH_EXPIRES_IN
+              value: 30d
+            # Secrets from Secret Manager
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: MONGODB_URI
+                  key: latest
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: JWT_SECRET
+                  key: latest
+            - name: JWT_REFRESH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: JWT_REFRESH_SECRET
+                  key: latest
+            - name: TWILIO_ACCOUNT_SID
+              valueFrom:
+                secretKeyRef:
+                  name: TWILIO_ACCOUNT_SID
+                  key: latest
+            - name: TWILIO_AUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: TWILIO_AUTH_TOKEN
+                  key: latest
+            - name: TWILIO_PHONE_NUMBER
+              valueFrom:
+                secretKeyRef:
+                  name: TWILIO_PHONE_NUMBER
+                  key: latest
+            - name: CLOUDINARY_CLOUD_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: CLOUDINARY_CLOUD_NAME
+                  key: latest
+            - name: CLOUDINARY_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: CLOUDINARY_API_KEY
+                  key: latest
+            - name: CLOUDINARY_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: CLOUDINARY_API_SECRET
+                  key: latest
+            - name: MPESA_CONSUMER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: MPESA_CONSUMER_KEY
+                  key: latest
+            - name: MPESA_CONSUMER_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: MPESA_CONSUMER_SECRET
+                  key: latest
+            - name: MPESA_SHORTCODE
+              valueFrom:
+                secretKeyRef:
+                  name: MPESA_SHORTCODE
+                  key: latest
+            - name: MPESA_PASSKEY
+              valueFrom:
+                secretKeyRef:
+                  name: MPESA_PASSKEY
+                  key: latest
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+  traffic:
+    - percent: 100
+      latestRevision: true
