@@ -48,7 +48,7 @@ steps:
       - --min-instances=0
       - --max-instances=10
       - --timeout=60s
-      - --set-env-vars=NODE_ENV=production,PORT=8080,MPESA_ENV=sandbox
+      - --set-env-vars=NODE_ENV=production,MPESA_ENV=sandbox
       - --set-secrets=MONGODB_URI=MONGODB_URI:latest,JWT_SECRET=JWT_SECRET:latest,JWT_REFRESH_SECRET=JWT_REFRESH_SECRET:latest,TWILIO_ACCOUNT_SID=TWILIO_ACCOUNT_SID:latest,TWILIO_AUTH_TOKEN=TWILIO_AUTH_TOKEN:latest,TWILIO_PHONE_NUMBER=TWILIO_PHONE_NUMBER:latest,CLOUDINARY_CLOUD_NAME=CLOUDINARY_CLOUD_NAME:latest,CLOUDINARY_API_KEY=CLOUDINARY_API_KEY:latest,CLOUDINARY_API_SECRET=CLOUDINARY_API_SECRET:latest
       - --quiet
     waitFor: ['push-sha', 'push-latest']

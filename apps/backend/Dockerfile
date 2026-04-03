@@ -20,7 +20,6 @@ FROM node:20-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-ENV PORT=8080
 
 COPY --from=builder /app/apps/backend/dist/apps/backend/src ./dist
 COPY --from=builder /app/node_modules                        ./node_modules
